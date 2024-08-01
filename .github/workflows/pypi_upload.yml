@@ -29,10 +29,11 @@ jobs:
       - name: Build wheel and source distributions
         run: python -m build
 
-      - name: Upload to PyPI via Twine
-        env:
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: twine upload --verbose -u '__token__' dist/*
+      - name: Upload wheels as workflow artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: black-wheels
+          path: dist/*.whl
 
   mypyc:
     name: mypyc wheels (${{ matrix.name }})
