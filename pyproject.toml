@@ -161,6 +161,7 @@ AIOHTTP_NO_EXTENSIONS = "1"
 before-build = [
   "sed -i \"s/^mirrorlist/#mirrorlist/\" /etc/yum.repos.d/*",
   "sed -i \"s/^\\#baseurl=http:\\/\\/mirror.centos.org\\/centos\\/\\$releasever\\//baseurl=https:\\/\\/vault.centos.org\\/7.9.2009\\//\" /etc/yum.repos.d/*",
+  "yum-config-manager --save --setopt=centos-sclo-rh.skip_if_unavailable=true",
   "yum update -y",
   "yum install -y clang gcc",
 ]
