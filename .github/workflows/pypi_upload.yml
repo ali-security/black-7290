@@ -46,7 +46,7 @@ jobs:
             name: linux-x86_64
           - os: windows-2019
             name: windows-amd64
-          - os: macos-11
+          - os: macos-12
             name: macos-x86_64
             macos_arch: "x86_64"
           # Only build x86_64 wheels on macos until #3312 is fixed
