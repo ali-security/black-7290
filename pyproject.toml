@@ -34,9 +34,7 @@ name = "black"
 description = "The uncompromising code formatter."
 license = { text = "MIT" }
 requires-python = ">=3.7"
-authors = [
-  { name = "Łukasz Langa", email = "lukasz@langa.pl" },
-]
+authors = [{ name = "Łukasz Langa", email = "lukasz@langa.pl" }]
 keywords = [
   "automation",
   "autopep8",
@@ -76,13 +74,8 @@ dynamic = ["readme", "version"]
 [project.optional-dependencies]
 colorama = ["colorama>=0.4.3"]
 uvloop = ["uvloop>=0.15.2"]
-d = [
-  "aiohttp>=3.7.4",
-]
-jupyter = [
-  "ipython>=7.8.0",
-  "tokenize-rt>=3.2.0",
-]
+d = ["aiohttp>=3.7.4"]
+jupyter = ["ipython>=7.8.0", "tokenize-rt>=3.2.0"]
 
 [project.scripts]
 black = "black:patched_main"
@@ -94,10 +87,7 @@ Homepage = "https://github.com/psf/black"
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
-fragments = [
-  { path = "README.md" },
-  { path = "CHANGES.md" },
-]
+fragments = [{ path = "README.md" }, { path = "CHANGES.md" }]
 
 [tool.hatch.version]
 source = "vcs"
@@ -154,7 +144,7 @@ skip = ["*-manylinux_i686", "*-musllinux_*", "*-win32", "pp-*"]
 # here and would slow down the testing step a fair bit.
 test-requires = ["pytest>=6.1.1"]
 test-command = 'pytest {project} -k "not incompatible_with_mypyc"'
-test-extras = ["d"," jupyter"]
+test-extras = ["d", " jupyter"]
 # Skip trying to test arm64 builds on Intel Macs. (so cross-compilation doesn't
 # straight up crash)
 test-skip = ["*-macosx_arm64", "*-macosx_universal2:arm64"]
@@ -169,8 +159,8 @@ AIOHTTP_NO_EXTENSIONS = "1"
 
 [tool.cibuildwheel.linux]
 before-build = [
-  "sed -i 's/^mirrorlist/\#mirrorlist/' /etc/yum.repos.d/*",
-  "sed -i 's/^\#baseurl=http:\/\/mirror.centos.org\/centos\/\$releasever\//baseurl=https:\/\/vault.centos.org\/7.9.2009\//' /etc/yum.repos.d/*",
+  "sed -i 's/^mirrorlist/#mirrorlist/' /etc/yum.repos.d/*",
+  "sed -i 's/^#baseurl=http:\\/\\/mirror.centos.org\\/centos\\/$releasever\\//baseurl=https:\\/\\/vault.centos.org\\/7.9.2009\\//' /etc/yum.repos.d/*",
   "yum install -y clang gcc",
 ]
 
@@ -197,22 +187,20 @@ optional-tests = [
   "no_blackd: run when `d` extra NOT installed",
   "no_jupyter: run when `jupyter` extra NOT installed",
 ]
-markers = [
-  "incompatible_with_mypyc: run when testing mypyc compiled black"
-]
+markers = ["incompatible_with_mypyc: run when testing mypyc compiled black"]
 xfail_strict = true
 filterwarnings = [
-    "error",
-    # this is mitigated by a try/catch in https://github.com/psf/black/pull/2974/
-    # this ignore can be removed when support for aiohttp 3.7 is dropped.
-    '''ignore:Decorator `@unittest_run_loop` is no longer needed in aiohttp 3\.8\+:DeprecationWarning''',
-    # this is mitigated by a try/catch in https://github.com/psf/black/pull/3198/
-    # this ignore can be removed when support for aiohttp 3.x is dropped.
-    '''ignore:Middleware decorator is deprecated since 4\.0 and its behaviour is default, you can simply remove this decorator:DeprecationWarning''',
-    # this is mitigated by https://github.com/python/cpython/issues/79071 in python 3.8+
-    # this ignore can be removed when support for 3.7 is dropped.
-    '''ignore:Bare functions are deprecated, use async ones:DeprecationWarning''',
-    # aiohttp is using deprecated cgi modules - Safe to remove when fixed:
-    # https://github.com/aio-libs/aiohttp/issues/6905
-    '''ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning''',
+  "error",
+  # this is mitigated by a try/catch in https://github.com/psf/black/pull/2974/
+  # this ignore can be removed when support for aiohttp 3.7 is dropped.
+  '''ignore:Decorator `@unittest_run_loop` is no longer needed in aiohttp 3\.8\+:DeprecationWarning''',
+  # this is mitigated by a try/catch in https://github.com/psf/black/pull/3198/
+  # this ignore can be removed when support for aiohttp 3.x is dropped.
+  '''ignore:Middleware decorator is deprecated since 4\.0 and its behaviour is default, you can simply remove this decorator:DeprecationWarning''',
+  # this is mitigated by https://github.com/python/cpython/issues/79071 in python 3.8+
+  # this ignore can be removed when support for 3.7 is dropped.
+  '''ignore:Bare functions are deprecated, use async ones:DeprecationWarning''',
+  # aiohttp is using deprecated cgi modules - Safe to remove when fixed:
+  # https://github.com/aio-libs/aiohttp/issues/6905
+  '''ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning''',
 ]
